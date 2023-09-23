@@ -29,9 +29,6 @@ public class Aluno {
         @Column(name = "telefone",length = 15,nullable = false)
         private String telefone;
 
-        @NotBlank(message = "coloque sua duvida aí namoral")
-        @Column(name = "duvida", columnDefinition = "TEXT",nullable = false)
-        private String duvida;
 
     public Integer getMatricula() {
         return matricula;
@@ -73,11 +70,5 @@ public class Aluno {
         this.telefone = telefone;
     }
 
-    public String getDuvida() {
-        return duvida;
-    }
 
-    public void setDuvida() {
-        this.duvida = duvida;
-    }
 }
