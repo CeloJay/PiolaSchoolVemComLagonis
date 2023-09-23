@@ -1,5 +1,6 @@
 package com.piola.PiolaSchool.controller;
 import com.piola.PiolaSchool.DAO.IAdministrador;
+import com.piola.PiolaSchool.Response.LoginResponse;
 import com.piola.PiolaSchool.model.Administrador;
 
 import java.util.HashMap;
@@ -39,8 +40,9 @@ public class AdministradorController  {
 
     @GetMapping
     public List<Administrador> administradorList (){
-return (List<Administrador>)dao.findAll();
+    return (List<Administrador>)dao.findAll();
     }
+    
     @PostMapping
     public Administrador criarAdministrador(@Valid @RequestBody Administrador admiministrador){
         admiministrador.setSenha(encoder.encode(admiministrador.getSenha()));
@@ -53,8 +55,8 @@ return (List<Administrador>)dao.findAll();
     public Map <String,String> handleValidatioExpetion(MethodArgumentNotValidException ex){
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName =((FieldError)error).getField();
-            String errorMessage =error.getDefaultMessage();
+            String fieldName = ((FieldError)error).getField();
+            String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         } ) ;
         return errors;
@@ -69,19 +71,26 @@ return (List<Administrador>)dao.findAll();
 
 
     @PostMapping("/login")
-    public ResponseEntity<Boolean> validarSenha (@RequestParam String nome,
+    public ResponseEntity<LoginResponse> validarSenha (@RequestParam String email,
                                                  @RequestParam String senha){
 
-        Optional<Administrador> optionalAdministrador = dao.findByNome(nome);
+        Optional<Administrador> optionalAdministrador = dao.findByEmail(email);
         if (optionalAdministrador.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse(false, ""));
         }
 
         Administrador administrador = optionalAdministrador.get();
         boolean valid = encoder.matches(senha, administrador.getSenha());
 
         HttpStatus status = (valid) ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
-        return ResponseEntity.status(status).body(valid);
+        if (valid){
+            String matricula = String.valueOf(administrador.getMatricula());
+            LoginResponse response = new LoginResponse(true, matricula);
+            return ResponseEntity.status(status).body(response);
+        }else {
+            return ResponseEntity.status(status).body(new LoginResponse(false, ""));
+        }
+
     }
 
 }

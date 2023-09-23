@@ -1,6 +1,8 @@
 package com.piola.PiolaSchool.controller;
 
 import com.piola.PiolaSchool.DAO.IAluno;
+import com.piola.PiolaSchool.Response.LoginResponse;
+import com.piola.PiolaSchool.model.Administrador;
 import com.piola.PiolaSchool.model.Aluno;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,7 @@ public class AlunoController {
 
     @GetMapping
     public List<Aluno> AlunoList (){
-        return (List<Aluno>)dao.findAll();
+        return (List<Aluno>) dao.findAll();
     }
 
     @PostMapping
@@ -65,18 +67,26 @@ public class AlunoController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Boolean> validarSenha (@RequestParam String nome,
-                                                 @RequestParam String senha){
+    public ResponseEntity<LoginResponse> validarSenha (@RequestParam String nome,
+                                                       @RequestParam String senha){
+
         Optional<Aluno> optionalAluno = dao.findByNome(nome);
-        if (optionalAluno.isEmpty()){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
+        if (optionalAluno.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse(false, ""));
         }
 
         Aluno aluno = optionalAluno.get();
         boolean valid = encoder.matches(senha, aluno.getSenha());
 
         HttpStatus status = (valid) ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
-        return ResponseEntity.status(status).body(valid);
-    }
+        if (valid){
+            String matricula = String.valueOf(aluno.getMatricula());
+            LoginResponse response = new LoginResponse(true, matricula);
+            return ResponseEntity.status(status).body(response);
+        }else {
+            return ResponseEntity.status(status).body(new LoginResponse(false, ""));
+        }
+
+}
 
 }

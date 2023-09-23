@@ -8,7 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {
+		org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class} )
 public class PiolaSchoolApplication {
 
 	public static void main(String[] args) {
@@ -19,7 +20,7 @@ public class PiolaSchoolApplication {
 		}
 		@Bean
 		public PasswordEncoder getPassWordEncoder(){
-		BCryptPasswordEncoder encoder =new BCryptPasswordEncoder();
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder;
 	}
 

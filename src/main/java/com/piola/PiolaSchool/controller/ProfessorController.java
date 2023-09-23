@@ -1,15 +1,13 @@
 package com.piola.PiolaSchool.controller;
 
-import com.piola.PiolaSchool.DAO.IAdministrador;
 import com.piola.PiolaSchool.DAO.IProfessor;
-import com.piola.PiolaSchool.model.Aluno;
+import com.piola.PiolaSchool.Response.LoginResponse;
 import com.piola.PiolaSchool.model.Professor;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -65,19 +63,26 @@ public class ProfessorController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Boolean> validarSenha(@RequestParam String nome,
-                                                @RequestParam String senha){
+    public ResponseEntity<LoginResponse> validarSenha(@RequestParam String nome,
+                                                      @RequestParam String senha){
 
         Optional<Professor> optionalProfessor = dao.findByNome(nome);
-        if (optionalProfessor.isEmpty()){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
+        if (optionalProfessor.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse(false, ""));
         }
 
         Professor professor = optionalProfessor.get();
         boolean valid = encoder.matches(senha, professor.getSenha());
 
         HttpStatus status = (valid) ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
-        return ResponseEntity.status(status).body(valid);
-    }
+        if (valid){
+            String matricula = String.valueOf(professor.getMatricula());
+            LoginResponse response = new LoginResponse(true, matricula);
+            return ResponseEntity.status(status).body(response);
+        }else {
+            return ResponseEntity.status(status).body(new LoginResponse(false, ""));
+        }
 
+
+    }
 }

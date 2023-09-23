@@ -7,4 +7,8 @@ import java.util.Optional;
 
 public interface IAluno extends CrudRepository <Aluno, Integer> {
     public Optional<Aluno> findByNome(String login);
+
+    public Optional<Aluno> findByEmail(String email);
+
+    public Optional<Aluno> findById(Integer matricula);
 }
