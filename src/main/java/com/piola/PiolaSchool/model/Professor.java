@@ -27,7 +27,7 @@ public class Professor {
     @Column(name = "telefone",length = 15,nullable = false)
     private String telefone;
 
-    @Column(name = "curso")
+    @Column(name = "curso", nullable = false)
     private Integer curso;
 
     public Integer getMatricula() {
