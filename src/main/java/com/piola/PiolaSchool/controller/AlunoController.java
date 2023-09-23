@@ -1,8 +1,6 @@
 package com.piola.PiolaSchool.controller;
 
 import com.piola.PiolaSchool.DAO.IAluno;
-import com.piola.PiolaSchool.Response.LoginResponse;
-import com.piola.PiolaSchool.model.Administrador;
 import com.piola.PiolaSchool.model.Aluno;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +85,4 @@ public class AlunoController {
         //   HttpStatus status = (valid) ? return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(0); : HttpStatus.UNAUTHORIZED;
         // return ResponseEntity.status(status).body(valid);
     }
-}
-
 }

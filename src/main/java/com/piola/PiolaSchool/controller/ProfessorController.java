@@ -36,7 +36,7 @@ public class ProfessorController {
 
     @GetMapping
     public List<Professor> ProfessorList(){
-        return (List<Professor>)dao.findAll();
+        return (List<Professor>) dao.findAll();
     }
 
     @PostMapping

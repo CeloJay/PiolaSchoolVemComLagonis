@@ -29,6 +29,7 @@ public class Aluno {
         @Column(name = "telefone",length = 15,nullable = false)
         private String telefone;
 
+
     public Integer getMatricula() {
         return matricula;
     }
