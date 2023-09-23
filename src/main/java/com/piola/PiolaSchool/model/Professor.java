@@ -26,6 +26,10 @@ public class Professor {
     @NotBlank(message = "Tem q colocar o seu telefone gatinha(o) ;)")
     @Column(name = "telefone",length = 15,nullable = false)
     private String telefone;
+
+    @Column(name = "curso")
+    private Integer curso;
+
     public Integer getMatricula() {
         return matricula;
     }
@@ -65,4 +69,13 @@ public class Professor {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+
+    public Integer getCurso(){
+        return curso;
+    }
+
+    public void setCurso(Integer curso){
+        this.curso = curso;
+    }
+
 }
