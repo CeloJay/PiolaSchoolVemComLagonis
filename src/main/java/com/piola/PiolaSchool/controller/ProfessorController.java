@@ -63,26 +63,25 @@ public class ProfessorController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> validarSenha(@RequestParam String nome,
-                                                      @RequestParam String senha){
+    public ResponseEntity<Integer> validarSenha(@RequestParam String email,
+                                                @RequestParam String senha) {
 
-        Optional<Professor> optionalProfessor = dao.findByNome(nome);
+        Optional<Professor> optionalProfessor = dao.findByEmail(email);
         if (optionalProfessor.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse(false, ""));
+            // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
+            Professor professor = null;
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(0);
         }
 
         Professor professor = optionalProfessor.get();
         boolean valid = encoder.matches(senha, professor.getSenha());
-
-        HttpStatus status = (valid) ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
-        if (valid){
-            String matricula = String.valueOf(professor.getMatricula());
-            LoginResponse response = new LoginResponse(true, matricula);
-            return ResponseEntity.status(status).body(response);
-        }else {
-            return ResponseEntity.status(status).body(new LoginResponse(false, ""));
-        }
-
-
+        boolean status = true;
+        if (status == (valid)) {
+            return ResponseEntity.status(HttpStatus.OK).body(professor.getMatricula());
+        } else
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(0);
+        //   HttpStatus status = (valid) ? return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(0); : HttpStatus.UNAUTHORIZED;
+        // return ResponseEntity.status(status).body(valid);
     }
+
 }

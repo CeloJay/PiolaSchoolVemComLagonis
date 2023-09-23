@@ -71,26 +71,25 @@ public class AdministradorController  {
 
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> validarSenha (@RequestParam String email,
-                                                 @RequestParam String senha){
+    public ResponseEntity<Integer> validarSenha(@RequestParam String email,
+                                                @RequestParam String senha) {
 
         Optional<Administrador> optionalAdministrador = dao.findByEmail(email);
         if (optionalAdministrador.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse(false, ""));
+            // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
+            Administrador administrador = null;
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(0);
         }
 
         Administrador administrador = optionalAdministrador.get();
         boolean valid = encoder.matches(senha, administrador.getSenha());
-
-        HttpStatus status = (valid) ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
-        if (valid){
-            String matricula = String.valueOf(administrador.getMatricula());
-            LoginResponse response = new LoginResponse(true, matricula);
-            return ResponseEntity.status(status).body(response);
-        }else {
-            return ResponseEntity.status(status).body(new LoginResponse(false, ""));
-        }
-
+        boolean status = true;
+        if (status == (valid)) {
+            return ResponseEntity.status(HttpStatus.OK).body(administrador.getMatricula());
+        } else
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(0);
+        //   HttpStatus status = (valid) ? return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(0); : HttpStatus.UNAUTHORIZED;
+        // return ResponseEntity.status(status).body(valid);
     }
 
 }

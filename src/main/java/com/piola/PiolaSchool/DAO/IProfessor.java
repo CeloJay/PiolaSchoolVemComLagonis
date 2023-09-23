@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface IProfessor extends CrudRepository <Professor, Integer> {
     public Optional<Professor> findByNome(String login);
+    public Optional<Professor> findByEmail(String login);
 
-    public Optional<Professor> findByEmail(String email);
 
 }
