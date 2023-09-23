@@ -3,13 +3,9 @@ package com.piola.PiolaSchool.atributes;
 
 public class Duvidas {
 
-    private String aluno;
-
-    private Integer curso;
+    private String duvida;
 
     private String email;
-
-    private String duvida;
 
     public String getDuvida() {
         return duvida;
@@ -17,22 +13,6 @@ public class Duvidas {
 
     public void setDuvida(String duvida) {
         this.duvida = duvida;
-    }
-
-    public String getAluno() {
-        return aluno;
-    }
-
-    public void setAluno(String aluno) {
-        this.aluno = aluno;
-    }
-
-    public Integer getCurso() {
-        return curso;
-    }
-
-    public void setCurso(Integer curso) {
-        this.curso = curso;
     }
 
     public String getEmail() {

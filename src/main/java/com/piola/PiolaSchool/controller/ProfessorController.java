@@ -1,7 +1,9 @@
 package com.piola.PiolaSchool.controller;
 
+import com.piola.PiolaSchool.DAO.IAluno;
 import com.piola.PiolaSchool.DAO.IProfessor;
 import com.piola.PiolaSchool.Response.LoginResponse;
+import com.piola.PiolaSchool.model.Aluno;
 import com.piola.PiolaSchool.model.Professor;
 
 import jakarta.validation.Valid;
@@ -25,6 +27,9 @@ public class ProfessorController {
 
     @Autowired
     private IProfessor dao;
+
+    @Autowired
+    private IAluno daoaluno;
 
     @Autowired
     private PasswordEncoder encoder;

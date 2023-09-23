@@ -85,4 +85,9 @@ public class AlunoController {
         //   HttpStatus status = (valid) ? return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(0); : HttpStatus.UNAUTHORIZED;
         // return ResponseEntity.status(status).body(valid);
     }
+
+    @PostMapping("/duvida")
+    public String gerarDuvida(@Valid @RequestBody Aluno aluno){
+        return aluno.getDuvida();
+    }
 }
