@@ -46,6 +46,7 @@ public class ProfessorController {
 
     @PostMapping
     public Professor criarProfessor(@Valid @RequestBody Professor professor){
+        professor.setSenha(encoder.encode(professor.getSenha()));
         Professor ProfessorCreate = dao.save(professor);
         return ProfessorCreate;
     }
