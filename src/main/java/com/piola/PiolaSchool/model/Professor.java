@@ -27,8 +27,10 @@ public class Professor {
     @Column(name = "telefone",length = 15,nullable = false)
     private String telefone;
 
-    @Column(name = "curso", nullable = false)
+    @NotBlank(message = "coloca o curso ae paekkkkk")
+    @Column(name = "curso", length = 16, nullable = false)
     private Integer curso;
+
 
     public Integer getMatricula() {
         return matricula;

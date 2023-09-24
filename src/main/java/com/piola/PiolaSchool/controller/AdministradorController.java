@@ -43,8 +43,11 @@ public class AdministradorController  {
     return (List<Administrador>)dao.findAll();
     }
     
-    @PostMapping
-    public Administrador criarAdministrador(@Valid @RequestBody Administrador admiministrador){
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/cadastrar")
+    public Administrador criarAdministrador(@Valid @RequestParam String nome, @RequestParam String email,
+                                            @RequestParam String senha,
+                                            @RequestParam String telefone, Administrador admiministrador){
         admiministrador.setSenha(encoder.encode(admiministrador.getSenha()));
         Administrador administradorCreate = dao.save(admiministrador);
         return administradorCreate;

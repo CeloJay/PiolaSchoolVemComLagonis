@@ -38,8 +38,10 @@ public class AlunoController {
         return (List<Aluno>) dao.findAll();
     }
 
-    @PostMapping
-    public Aluno criarAluno(@Valid @RequestBody Aluno aluno){
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/cadastrar")
+    public Aluno criarAluno(@Valid @RequestParam String nome, @RequestParam String email,
+                            @RequestParam String senha, @RequestParam String telefone, Aluno aluno){
         aluno.setSenha(encoder.encode(aluno.getSenha()));
         Aluno alunoCreate = dao.save(aluno);
         return alunoCreate;
