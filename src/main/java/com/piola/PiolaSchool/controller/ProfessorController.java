@@ -52,7 +52,7 @@ public class ProfessorController {
     }
 
     @GetMapping("/{matricula}")
-    public Optional<Professor> deletarProfessor(@PathVariable Integer matricula){
+    public Optional<Professor> getProfessor(@PathVariable Integer matricula){
         Optional<Professor> Professor = dao.findById(matricula);
         return Professor;
     }

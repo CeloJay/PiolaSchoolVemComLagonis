@@ -62,6 +62,12 @@ public class AdministradorController  {
         return errors;
     }
 
+    @GetMapping("/{matricula}")
+    public Optional<Administrador> getAdministrador(@PathVariable Integer matricula){
+            Optional<Administrador> administrador = dao.findById(matricula);
+            return administrador;
+    }
+
     @DeleteMapping("/{matricula}")
     public Optional<Administrador> deletarAdministrador(@PathVariable Integer matricula){
             Optional<Administrador> administrador = dao.findById(matricula);
