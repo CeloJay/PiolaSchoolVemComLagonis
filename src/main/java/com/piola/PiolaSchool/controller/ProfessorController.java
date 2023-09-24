@@ -51,6 +51,12 @@ public class ProfessorController {
         return ProfessorCreate;
     }
 
+    @GetMapping("/{matricula}")
+    public Optional<Professor> deletarProfessor(@PathVariable Integer matricula){
+        Optional<Professor> Professor = dao.findById(matricula);
+        return Professor;
+    }
+
     @DeleteMapping("/{matricula}")
     public Optional<Professor> deletarProfessor(@PathVariable Integer matricula){
         Optional<Professor> Professor = dao.findById(matricula);
