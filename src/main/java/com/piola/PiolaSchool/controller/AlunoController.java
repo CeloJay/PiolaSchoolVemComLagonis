@@ -39,6 +39,7 @@ public class AlunoController {
     }
 
     @PostMapping
+    @CrossOrigin
     public Aluno criarAluno(@Valid @RequestBody Aluno aluno){
         aluno.setSenha(encoder.encode(aluno.getSenha()));
         Aluno alunoCreate = dao.save(aluno);
