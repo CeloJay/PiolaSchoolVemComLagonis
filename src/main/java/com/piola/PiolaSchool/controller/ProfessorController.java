@@ -58,6 +58,7 @@ public class ProfessorController {
     }
 
     @DeleteMapping("/{matricula}")
+    @CrossOrigin
     public Optional<Professor> deletarProfessor(@PathVariable Integer matricula){
         Optional<Professor> Professor = dao.findById(matricula);
         dao.deleteById(matricula);

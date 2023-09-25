@@ -57,6 +57,12 @@ public class AlunoController {
         return errors;
     }
 
+    @GetMapping("/{matricula}")
+    public Optional<Aluno> getAluno(@PathVariable Integer matricula){
+        Optional<Aluno> Aluno = dao.findById(matricula);
+        return Aluno;
+    }
+
     @DeleteMapping("/{matricula}")
     public Optional<Aluno> deletarAluno(@PathVariable Integer matricula){
         Optional<Aluno> Aluno = dao.findById(matricula);
