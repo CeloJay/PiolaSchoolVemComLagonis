@@ -1,18 +1,17 @@
 package com.piola.PiolaSchool.atributes;
 
-
 import jakarta.persistence.*;
 
-@Table(name = "duvida")
 @Entity
-public class Duvidas {
+@Table(name = "comentario")
+public class Comentario {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "duvida")
-    private String duvida;
+    @Column(name = "comentario")
+    private String comentario;
 
     @Column(name = "email")
     private String email;
@@ -28,12 +27,12 @@ public class Duvidas {
         this.id = id;
     }
 
-    public String getDuvida() {
-        return duvida;
+    public String getComentario() {
+        return comentario;
     }
 
-    public void setDuvida(String duvida) {
-        this.duvida = duvida;
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 
     public String getEmail() {

@@ -41,10 +41,18 @@ public class AlunoController {
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/cadastrar")
     public Aluno criarAluno(@Valid @RequestParam String nome, @RequestParam String email,
-                            @RequestParam String senha, @RequestParam String telefone, Aluno aluno){
+                            @RequestParam String senha, @RequestParam String telefone, @RequestParam Integer curso, Aluno aluno){
         aluno.setSenha(encoder.encode(aluno.getSenha()));
         Aluno alunoCreate = dao.save(aluno);
         return alunoCreate;
+    }
+
+    @PutMapping
+    public Aluno editarAluno(@Valid @RequestParam String nome, @RequestParam String email,
+                             @RequestParam String senha, @RequestParam String telefone, @RequestParam Integer curso, Aluno aluno){
+        aluno.setSenha(encoder.encode(aluno.getSenha()));
+        Aluno alunoEdit = dao.save(aluno);
+        return alunoEdit;
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -72,7 +80,6 @@ public class AlunoController {
 
         Optional<Aluno> optionalAluno = dao.findByEmail(email);
         if (optionalAluno.isEmpty()) {
-            // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
             Aluno aluno = null;
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(0);
         }
@@ -84,8 +91,6 @@ public class AlunoController {
             return ResponseEntity.status(HttpStatus.OK).body(aluno.getMatricula());
         } else
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(0);
-        //   HttpStatus status = (valid) ? return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(0); : HttpStatus.UNAUTHORIZED;
-        // return ResponseEntity.status(status).body(valid);
     }
 
 

@@ -29,6 +29,9 @@ public class Aluno {
         @Column(name = "telefone",length = 15,nullable = false)
         private String telefone;
 
+        @Column(name = "curso")
+        private Integer curso;
+
 
     public Integer getMatricula() {
         return matricula;
@@ -70,5 +73,11 @@ public class Aluno {
         this.telefone = telefone;
     }
 
+    public Integer getCurso() {
+        return curso;
+    }
 
+    public void setCurso(Integer curso) {
+        this.curso = curso;
+    }
 }
